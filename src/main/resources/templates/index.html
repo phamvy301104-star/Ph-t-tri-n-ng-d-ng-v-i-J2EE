@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Trang chủ</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3>🏠 Chào mừng đến với Book Management</h3>
+            </div>
+            <div class="card-body">
+                <h4>Welcome to Book Management System</h4>
+                <p th:text="${message}" class="lead"></p>
+                <hr>
+                <p>Đây là hệ thống quản lý sách sử dụng:</p>
+                <ul>
+                    <li>Spring Boot</li>
+                    <li>Thymeleaf Template Engine</li>
+                    <li>Thymeleaf Layout Dialect</li>
+                    <li>Bootstrap 5</li>
+                </ul>
+                <a th:href="@{/books}" class="btn btn-success">Xem danh sách sách</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
