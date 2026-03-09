@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>List Products</title>
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/products/add}" class="btn btn-primary mb-3">Create New Product</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category Name</th>
+            <th scope="col" sec:authorize="hasRole('ADMIN')">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <th scope="row" th:text="${product.id}"></th>
+            <td th:text="${product.name}"></td>
+            <td>
+                <img height="120" width="150" th:if="${product.image != null and !product.image.isEmpty()}" th:src="${product.image}" alt="Product Image" onerror="this.style.display='none'">
+                <span th:if="${product.image == null or product.image.isEmpty()}">No image</span>
+            </td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category != null} ? ${product.category.name} : ''"></td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <form th:action="@{/products/edit/{id}(id=${product.id})}" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-secondary btn-sm">Edit</button>
+                </form>
+                <form th:action="@{/products/delete/{id}(id=${product.id})}" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
