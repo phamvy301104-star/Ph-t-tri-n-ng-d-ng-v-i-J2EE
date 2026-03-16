@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Access Denied</title>
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+    <div class="alert alert-danger mt-4" role="alert">
+        <h4 class="alert-heading">403 - Truy cập bị từ chối!</h4>
+        <p>Bạn không có quyền truy cập trang này.</p>
+        <hr>
+        <a th:href="@{/products}" class="btn btn-primary">Quay lại trang sản phẩm</a>
+    </div>
+</div>
+</body>
+</html>
