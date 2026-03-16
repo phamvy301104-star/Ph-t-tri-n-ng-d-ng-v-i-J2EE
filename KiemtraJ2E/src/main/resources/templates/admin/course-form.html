@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${course.id != null} ? 'Sua Khoa Hoc' : 'Them Khoa Hoc'">Khoa Hoc</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/admin}"><i class="bi bi-speedometer2"></i> Admin Panel</a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/courses}">Quan Ly Khoa Hoc</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" th:href="@{/home}"><i class="bi bi-house"></i> Trang chu</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0" th:text="${course.id != null} ? 'Sua Khoa Hoc' : 'Them Khoa Hoc'"></h4>
+                </div>
+                <div class="card-body">
+                    <form th:with="actionUrl=${course.id != null} ? '/admin/courses/edit/' + ${course.id} : '/admin/courses/create'"
+                          th:action="@{${actionUrl}}" method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Ten khoa hoc *</label>
+                            <input type="text" class="form-control" name="name" th:value="${course.name}" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">So tin chi *</label>
+                                <input type="number" class="form-control" name="credits" th:value="${course.credits}" min="1" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Giang vien *</label>
+                                <input type="text" class="form-control" name="lecturer" th:value="${course.lecturer}" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Danh muc *</label>
+                            <select class="form-select" name="categoryId" required>
+                                <option value="">-- Chon danh muc --</option>
+                                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"
+                                        th:selected="${course.category != null and course.category.id == cat.id}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hinh anh</label>
+                            <input type="file" class="form-control" name="imageFile" accept="image/*">
+                            <div th:if="${course.image}" class="mt-2">
+                                <img th:src="@{${course.image}}" alt="current" style="max-height:120px;border-radius:6px">
+                                <small class="d-block text-muted mt-1">Anh hien tai (chon file moi de thay doi)</small>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Luu</button>
+                            <a th:href="@{/admin/courses}" class="btn btn-secondary">Huy</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

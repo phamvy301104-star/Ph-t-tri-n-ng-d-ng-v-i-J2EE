@@ -1,0 +1,21 @@
+# Build
+**/build/
+**/target/
+**/.gradle/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Gradle wrapper jar (keep scripts, ignore jar)
+!**/gradle/wrapper/gradle-wrapper.properties
+**/gradle/wrapper/gradle-wrapper.jar
+
+# Logs
+*.log
